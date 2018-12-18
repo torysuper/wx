@@ -1,0 +1,58 @@
+#logging:
+#  config:
+#    classpath: logback-boot.xml
+level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
+
+server:
+    port: 80
+
+#spring:
+#    datasource:
+#        name: mysql_test
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        #druid相关配置http://47.93.254.179:8888
+#        druid:
+#          #监控统计拦截的filters
+#          filters: stat
+#          #driver-class-name: oracle.jdbc.driver.OracleDriver
+#          #基本属性
+#          url: jdbc:mysql://47.93.254.179:3306/mysql?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#          username: root
+#          password: 1Qaz2wsx.
+##          url: jdbc:oracle:thin:@192.168.1.139:1521:orcl
+##          username: test
+##          password: test
+#          #配置初始化大小/最小/最大
+#          initial-size: 1
+#          min-idle: 1
+#          max-active: 20
+#          #获取连接等待超时时间
+#          max-wait: 60000
+#          #间隔多久进行一次检测，检测需要关闭的空闲连接
+#          time-between-eviction-runs-millis: 60000
+#          #一个连接在池中最小生存的时间
+#          min-evictable-idle-time-millis: 300000
+#          #validation-query: SELECT 'x'
+#          #test-while-idle: true
+#          #test-on-borrow: false
+#          #test-on-return: false
+#          #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+#          pool-prepared-statements: true
+#          max-pool-prepared-statement-per-connection-size: 20
+
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.winterchen.model
+
+wx:
+  mp:
+    configs:
+      - appId: 12
+        secret: xx
+        token: xx
+        aesKey: xx
+
+
