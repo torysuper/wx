@@ -72,25 +72,25 @@ public class MsgHandler extends AbstractHandler {
         } else if (StringUtils.startsWithAny(wxMessage.getContent(), "开始自动报工")||StringUtils.startsWithAny(wxMessage.getContent(), "停止自动报工")){
             weChatService.updateStatus(trUser,wxMessage);
         } else {
-                //TODO 组装验证码verify回复消息
-                content = "收到信息内容：" + WechatUtils.toJson(wxMessage);
-                Map<String, String> map  = MapCacheManager.getMapCache();
-                List<String> cacheList = MapCacheManager.getListCache();
-                Map<String, String> ypmap  = MapCacheManager.getypMapCache();
-                List<String> ypcacheList = MapCacheManager.getypListCache();
-                String temp1 = cacheList.get(cacheList.size()-1);
-                String temp2 = ypcacheList.get(ypcacheList.size()-1);
-                String value1 = "暂时没有";
-                String value2 = "暂时没有";
+            //TODO 组装验证码verify回复消息
+            content = "收到信息内容：" + WechatUtils.toJson(wxMessage);
+            Map<String, String> map  = MapCacheManager.getMapCache();
+            List<String> cacheList = MapCacheManager.getListCache();
+            Map<String, String> ypmap  = MapCacheManager.getypMapCache();
+            List<String> ypcacheList = MapCacheManager.getypListCache();
+            String temp1 = cacheList.get(cacheList.size()-1);
+            String temp2 = ypcacheList.get(ypcacheList.size()-1);
+            String value1 = "暂时没有";
+            String value2 = "暂时没有";
 
-                if (!temp1.isEmpty()){
-                    value1 = map.get(temp1);
-                }
+            if (!temp1.isEmpty()){
+                value1 = map.get(temp1);
+            }
 
-                if (!temp2.isEmpty()){
-                    value2 = ypmap.get(temp2);
-                }
-                content = value1+"\n" +value2+"\n" + weChatService.getTip(StringConstant.Tips_News);
+            if (!temp2.isEmpty()){
+                value2 = ypmap.get(temp2);
+            }
+            content = value1+"\n" +value2+"\n" + weChatService.getTip(StringConstant.Tips_News);
         }
         this.logger.info("\n返回的消息为：[{}]",content);
         return new TextBuilder().build(content, wxMessage, weixinService);

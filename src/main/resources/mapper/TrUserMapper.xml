@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.binarywang.demo.wx.mp.dao.WeChatDao">
+    <resultMap id="TrUserMap"   type="com.github.binarywang.demo.wx.mp.model.po.TrUser">
+
+        <id column="id"       property="id"          jdbcType="VARCHAR"/>
+        <result column="openid"       property="openId"          jdbcType="VARCHAR"/>
+        <result column="nickname"       property="nickName"          jdbcType="VARCHAR"/>
+        <result column="doItuser"       property="doItUser"          jdbcType="VARCHAR"/>
+        <result column="doItpasswd"       property="doItPassWd"          jdbcType="VARCHAR"/>
+        <result column="createtime"       property="createTime"          jdbcType="TIMESTAMP"/>
+        <result column="isAuto"       property="isAuto"          jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="TipsMap"   type="com.github.binarywang.demo.wx.mp.model.po.Tips">
+        <id column="id"       property="id"          jdbcType="INTEGER"/>
+        <result column="tip"       property="tip"          jdbcType="VARCHAR"/>
+        <result column="keyWord"       property="keyWord"          jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="VerifyMap"   type="com.github.binarywang.demo.wx.mp.model.po.Verify">
+        <id column="id"       property="id"          jdbcType="INTEGER"/>
+        <result column="from"       property="from"          jdbcType="VARCHAR"/>
+        <result column="verify"       property="verify"          jdbcType="VARCHAR"/>
+        <result column="massage"       property="massage"          jdbcType="VARCHAR"/>
+        <result column="createtime"       property="createTime"          jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="listUser" resultMap="TrUserMap">
+        select *
+        from tr_user
+    </select>
+
+    <select id="listUserId" resultType="List">
+        select openid
+        from tr_user
+    </select>
+
+    <select id="getUser" resultMap="TrUserMap" parameterType="String">
+        select *
+        from tr_user
+        where openid = #{openId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getTipByKeyWord" resultMap="TipsMap" parameterType="String">
+        select *
+        from tr_tips
+        where keyword =#{keyword,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateUser"  parameterType="com.github.binarywang.demo.wx.mp.model.po.TrUser">
+        update tr_user set
+        openid = #{openId},
+        nickname = #{nickName},
+        doItuser = #{doItUser},
+        doItpasswd = #{doItPassWd},
+        isAuto = #{isAuto}
+        where id =#{id}
+    </update>
+
+    <insert id="addUser" parameterType="com.github.binarywang.demo.wx.mp.model.po.TrUser">
+        insert into tr_user(id,openid,nickname,createtime)
+        values (#{id},#{openId},#{nickName})
+    </insert>
+
+    <select id="getVerify" resultMap="VerifyMap" parameterType="String">
+        select *
+        from tr_verify
+        where createtime=(select max(createtime) from tr_verify where `from` =#{from,jdbcType=VARCHAR} )
+    </select>
+
+    <insert id="addVerify" parameterType="com.github.binarywang.demo.wx.mp.model.po.Verify">
+        insert into tr_verify(id,`from`,verify,massage,createtime)
+        values (#{id},#{from},#{verify},#{massage},#{createTime})
+    </insert>
+</mapper>

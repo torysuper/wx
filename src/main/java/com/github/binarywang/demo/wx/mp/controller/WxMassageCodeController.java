@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping(value = "/massage")
 public class WxMassageCodeController {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //    mode=sms (sms模式 保持不变)
 //    smsrn=%SMSRN (发件人姓名 保持不变)
